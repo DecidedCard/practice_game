@@ -38,14 +38,6 @@ let paddleX = (canvas.width - paddleWidth) / 2;
 let rightPressed = false;
 let leftPressed = false;
 
-const drawPaddle = () => {
-  ctx.beginPath();
-  ctx.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
-  ctx.fillStyle = "#0095DD";
-  ctx.fill();
-  ctx.closePath();
-};
-
 const keyDownHandler = (e) => {
   if (e.keyCode == 39) {
     rightPressed = true;
@@ -59,6 +51,20 @@ const keyUpHandler = (e) => {
     rightPressed = false;
   } else if (e.keyCode == 37) {
     leftPressed = false;
+  }
+};
+
+const drawPaddle = () => {
+  ctx.beginPath();
+  ctx.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
+  ctx.fillStyle = "#0095DD";
+  ctx.fill();
+  ctx.closePath();
+
+  if (rightPressed && paddleX < canvas.width - paddleWidth) {
+    paddleX += 7;
+  } else if (leftPressed && paddleX > 0) {
+    paddleX -= 7;
   }
 };
 
