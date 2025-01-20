@@ -29,6 +29,14 @@ for (let c = 0; c < brickColumnCount; c++) {
 
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
+document.addEventListener("mousemove", mouseMoveHandler, false);
+
+function mouseMoveHandler(e) {
+  const relativeX = e.clientX - canvas.offsetLeft;
+  if (relativeX > 0 && relativeX < canvas.width) {
+    paddleX = relativeX - paddleWidth / 2;
+  }
+}
 
 function keyDownHandler(e) {
   if (e.keyCode == 39) {
@@ -37,6 +45,7 @@ function keyDownHandler(e) {
     leftPressed = true;
   }
 }
+
 function keyUpHandler(e) {
   if (e.keyCode == 39) {
     rightPressed = false;
@@ -44,6 +53,7 @@ function keyUpHandler(e) {
     leftPressed = false;
   }
 }
+
 function collisionDetection() {
   for (let c = 0; c < brickColumnCount; c++) {
     for (let r = 0; r < brickRowCount; r++) {
@@ -75,6 +85,7 @@ function drawBall() {
   ctx.fill();
   ctx.closePath();
 }
+
 function drawPaddle() {
   ctx.beginPath();
   ctx.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
@@ -82,6 +93,7 @@ function drawPaddle() {
   ctx.fill();
   ctx.closePath();
 }
+
 function drawBricks() {
   for (let c = 0; c < brickColumnCount; c++) {
     for (let r = 0; r < brickRowCount; r++) {
@@ -99,6 +111,7 @@ function drawBricks() {
     }
   }
 }
+
 function drawScore() {
   ctx.font = "16px Arial";
   ctx.fillStyle = "#0095DD";
